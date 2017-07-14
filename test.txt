@@ -1,0 +1,27 @@
+        if len(img_merge["en"]) != 0:
+            #存英文的图片
+            #cv2.imwrite("/home/shuang/workspace/OCR/merge_en.jpg", img_merge["en"])
+
+            # --------for debugger-----------#
+            if debug_:
+                filename = savePicture(img_merge["en"],'merge_en.jpg')
+                enpicInfo = createPicinfo('发票识别过程中，合并而成的英文图片',filename,'detect','','')
+            #-------------------------------#
+
+            img_binary_en = np.array(cv2.imencode(".jpg", img_merge["en"])[1]).tostring()
+            result, _ = OcrHelper.aipocr(reqid, img_binary_en, ".jpg", False)
+            result_final = transfer(analyse_result(json.loads(result), len(list_en)), label_list=list_en)
+        if len(img_merge["cn"]) != 0:
+            #存中文的图片
+            #cv2.imwrite("/home/shuang/workspace/OCR/merge_cn.jpg", img_merge["cn"])
+
+            # --------for debugger-----------#
+            if debug_:
+                filename = savePicture(img_merge["cn"], 'merge_cn.jpg')
+                cnpicInfo = createPicinfo('发票识别过程中，合并而成的中文图片',filename,'detect','','')
+            #-------------------------------#
+
+            img_binary_cn = np.array(cv2.imencode(".jpg", img_merge["cn"])[1]).tostring()
+            result, _ = OcrHelper.aipocr(reqid, img_binary_cn, ".jpg", True)
+            result_final = transfer(analyse_result(json.loads(result), len(list_cn)), result_final, label_list=list_cn)
+        
