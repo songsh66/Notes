@@ -1,0 +1,13 @@
+#+Title:Emacs Study Notes
+* Show Line Num-ber
+  M-x linum-mode
+* Record Time in org-mode
+  - Create time
+    C-c C-s
+  - Deadtime
+    C-c C-d
+  - Start timer
+    C-c C-x C-i
+  - Stop timer
+    C-c C-x C-o
+ 
